@@ -51,6 +51,7 @@ module Savon
     def initialize(endpoint, options = {})
       @endpoint = URI endpoint
       @proxy = options[:proxy] ? URI(options[:proxy]) : URI("")
+      headers['Accept-encoding'] = 'gzip,deflate' if options[:gzip] == true
     end
 
     # Returns the endpoint URI.
@@ -135,3 +136,4 @@ module Savon
 
   end
 end
+
