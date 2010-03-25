@@ -128,6 +128,15 @@ describe Savon::Response do
     @response.to_xml
   end
 
+  #header extracted from http://dev.ctor.org/svn/soap4r/trunk/lib/soap/streamHandler.rb
+  it "should decode gzip request if body starts with gzip header" do
+    @response = Savon::Response.new http_response_mock(200, body = "\x1f\x8bEncoded", "OK")
+
+    should_decode_body body
+
+    @response.to_xml
+  end
+
   def should_decode_body body
     StringIO.expects(:new).with(body).returns(stream = mock('StringIO'))
 
